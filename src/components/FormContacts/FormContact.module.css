@@ -1,7 +1,9 @@
 .form {
   display: flex;
   flex-direction: column;
+
   width: 100%;
+  /* min-height: 350px; */
   font-family: sans-serif;
   font-size: 28px;
   padding: 20px;
@@ -38,6 +40,7 @@
   transform: translateY(-7px);
 }
 .Submit {
+  margin-top: 25px;
   width: 130px;
   max-height: 45px;
   line-height: 45px;
@@ -64,9 +67,6 @@
 }
 
 .errorMassege {
-  position: absolute;
-  top: 33px;
-  z-index: 0;
   background-color: rgb(255, 245, 245);
   color: rgb(120, 27, 0);
   display: block;
@@ -75,24 +75,13 @@
   padding: 0.5rem 0.75rem;
   margin-top: 0.5rem;
   white-space: pre-line;
-  animation: fade 3s ease forwards;
 }
-@keyframes fade {
-  from {
-    opacity: 1;
-    visibility: visible;
-  }
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
+
 .input {
   display: flex;
-  position: relative;
   min-width: 90%;
   height: 40px;
-  margin: 10px;
+  margin-top: 10px;
   font-family: sans-serif;
   font-size: 28px;
 }
@@ -104,5 +93,8 @@
 }
 
 .label {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 140px;
 }

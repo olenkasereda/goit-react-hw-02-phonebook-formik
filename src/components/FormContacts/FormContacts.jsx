@@ -1,23 +1,32 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import s from './FormContact.module.css';
+import { PropTypes } from 'prop-types';
 
 const schema = yup.object().shape({
-  login: yup
+  name: yup
     .string()
     .min(2, 'Your name is too short')
     .required('Please enter your full name'),
-  password: yup.string().min(6).max(16).required(),
+  number: yup
+    .string()
+    .required('Domain is required.')
+    .matches(
+      /(\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9})/,
+      'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
+    ),
 });
 
 const initialValues = {
-  login: '',
-  password: '',
+  name: '',
+  number: '',
 };
 
-const FormContacts = () => {
+const FormContacts = props => {
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
+    const { name, number } = values;
+    props.addContact({ name: name, number: number });
     resetForm();
   };
 
@@ -29,21 +38,31 @@ const FormContacts = () => {
     >
       <Form className={s.form} autoComplete="off">
         <label className={s.label} htmlFor="login">
-          Login
-          <Field className={s.input} type="text" name="login" />
+          Name
+          <Field
+            className={s.input}
+            placeholder="Full name"
+            type="text"
+            name="name"
+          />
           <ErrorMessage
             className={s.errorMassege}
-            name="login"
+            name="name"
             component="div"
           />
         </label>
         <br />
         <label className={s.label} htmlFor="password">
-          Password
-          <Field className={s.input} type="tex9+" name="password" />
+          Number
+          <Field
+            className={s.input}
+            placeholder="Phone number: +380..."
+            type="tel"
+            name="number"
+          />
           <ErrorMessage
             className={s.errorMassege}
-            name="password"
+            name="number"
             component="div"
           />
         </label>
@@ -53,6 +72,10 @@ const FormContacts = () => {
       </Form>
     </Formik>
   );
+};
+
+FormContacts.propTypes = {
+  addContact: PropTypes.func.isRequired,
 };
 
 export default FormContacts;
